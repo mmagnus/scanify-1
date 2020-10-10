@@ -3,6 +3,7 @@ import numpy as np
 
 from scipy import misc, ndimage
 from skimage import exposure
+import imageio
 
 __author__ = 'Daniel'
 
@@ -10,7 +11,7 @@ __author__ = 'Daniel'
 class Scanifier(object):
     def run(self, imgin_path, imgout_path=None, increase_exposure=False):
         imgin_path = self.__expand_user(imgin_path)
-        img = misc.imread(imgin_path)
+        img = imageio.imread(imgin_path)
 
         img_blurred = self.__blur(img)
         img = self.__divide(img, img_blurred)
@@ -19,7 +20,7 @@ class Scanifier(object):
 
         if not imgout_path:
             imgout_path = self.__add_suffix(imgin_path)
-        misc.imsave(imgout_path, img)
+        imageio.imsave(imgout_path, img)
         print("Saved to", imgout_path)
 
     def __expand_user(self, path):
